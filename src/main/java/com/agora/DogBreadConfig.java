@@ -5,10 +5,18 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan("")
+@ComponentScan("com.agora.seervice")
 public class DogBreadConfig {
 	
-	
+	/**
+	 *  <bean id = "cdog" class = "com.agora.Dog">
+      <property name = "name" value = "Jacky"/>
+      <property name = "color" value = "white"/>
+      <property name = "age" value = "3"/>
+       <property name = "mybread" ref = "bread"/>
+   </bean>
+	 * @return
+	 */
 	@Bean("cdog")
 	public Dog getDog() {
 		Dog dog1=new Dog();
