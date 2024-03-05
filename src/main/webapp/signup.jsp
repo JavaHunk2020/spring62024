@@ -45,6 +45,9 @@
      <div class="form-group" style="margin-top: 10px;">
           <button type="submit" class="btn btn-primary">Signup</button>
            <button type="reset" class="btn btn-warning">Clear</button>
+            <a href="auth">
+             <button type="button" class="btn btn-success">Sign In</button>
+             </a>
         </div>
     </form> 
      

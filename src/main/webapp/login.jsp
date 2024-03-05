@@ -31,7 +31,7 @@
      <div class="form-group" style="margin-top: 10px;">
           <button type="submit" class="btn btn-primary">Signin</button>
            <button type="reset" class="btn btn-warning">Clear</button>
-              <a href="signup.jsp">
+              <a href="signup">
              <button type="button" class="btn btn-success">Signup</button>
              </a>
         </div>
