@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<%@page import="com.vistal.tech.DataStore"%>
-<%@page import="com.vistal.tech.SignupDTO"%>
-<%@page import="java.util.Map.Entry"%>
-<%@page import="java.util.Map"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.vistal.tech.Signup"%>
+<%@page import="java.util.List"%>
 <html lang="en">
 <head>
   <title>Login</title>
@@ -42,16 +41,19 @@
     </thead>
     <tbody>
   <%  
-  Map<String,SignupDTO> mapData=DataStore.getMap();
-      for(Entry<String,SignupDTO> entry : mapData.entrySet()){
+  List<Signup> signups=(List<Signup>)request.getAttribute("signups");
+  if(signups==null){
+	  signups =new ArrayList<>();
+  }
+      for(Signup signup : signups){
     	 %>
       <tr>
-        <td><%=entry.getValue().getUsername()%></td>
-        <td><%=entry.getValue().getPassword()%></td>
-        <td><%=entry.getValue().getEmail()%></td>
-         <td><%=entry.getValue().getGender()%></td>
+        <td><%=signup.getUsername()%></td>
+        <td><%=signup.getPassword()%></td>
+        <td><%=signup.getEmail()%></td>
+         <td><%=signup.getGender()%></td>
            <th>  
-           <a href="deleteSignup?uname=<%=entry.getValue().getUsername()%>">
+           <a href="deleteSignup?uname=<%=signup.getUsername()%>">
            <button type="reset" class="btn btn-danger">Delete</button>
            </a>
            </th>
