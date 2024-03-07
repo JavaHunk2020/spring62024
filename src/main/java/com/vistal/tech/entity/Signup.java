@@ -1,11 +1,18 @@
-package com.vistal.tech;
+package com.vistal.tech.entity;
 
-public class SignupDTO {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="signup_tbl")
+public class Signup {
 	private String username;
 	private String password;
 	private String email;
 	private String gender;
 
+	@Id
 	public String getUsername() {
 		return username;
 	}
@@ -43,5 +50,4 @@ public class SignupDTO {
 		return "SignupDTO [username=" + username + ", password=" + password + ", email=" + email + ", gender=" + gender
 				+ "]";
 	}
-
 }

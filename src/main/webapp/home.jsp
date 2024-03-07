@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.vistal.tech.Signup"%>
+<%@page import="com.vistal.tech.entity.Signup"%>
 <%@page import="java.util.List"%>
 <html lang="en">
 <head>
@@ -26,8 +26,16 @@
     <a href="auth"> 
        <button type="button" class="btn btn-primary">Login</button>
    </a>
+   
+   <a href="logout"> 
+       <button type="button" class="btn btn-primary">Logout</button>
+   </a>
    <br/>
-    <b> Hello !!!!!! ${param.username}</b> 
+    <b> Username :  ${sessionScope.ssignup.username}</b>
+     <br/> 
+    <b> Email :  ${ssignup.email}</b>
+    <br/> 
+    <b>Gender :  ${ssignup.gender}</b> 
    <hr/>
     <table class="table table-bordered">
     <thead>
