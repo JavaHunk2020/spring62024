@@ -13,14 +13,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.vistal.tech.entity.Signup;
+import com.vistal.tech.dto.SignupDTO;
 import com.vistal.tech.repository.SignRepository;
+import com.vistal.tech.service.SignupServiceImpl;
 
 @Controller
 public class LoginSignupController {
 	
 	@Autowired
 	private SignRepository signRepository;
+	
+	@Autowired
+	private SignupServiceImpl signupServiceImpl;
 	
 	@GetMapping({"/papaya","/","fool","login","auth"})
 	public String showLogin() {
@@ -37,26 +41,26 @@ public class LoginSignupController {
 	
 	@GetMapping("/signups")
 	public String findSigups(Model model){
-		List<Signup> signups=signRepository.findAll();
+		List<SignupDTO> signups=signupServiceImpl.findAll();
 		model.addAttribute("signups",signups);
 		return "home";
 	}
 	
 	@GetMapping("deleteSignup")
 	public String showLogin(@RequestParam String uname, Model model) {
-		signRepository.deleteById(uname);
+		signupServiceImpl.deleteByUsername(uname);
 		return "redirect:/signups";
 	}
 	
 	@PostMapping("/auth")
 	public String authPost(@RequestParam String username,@RequestParam String password,HttpSession session, Model model) {
-		Optional<Signup> optional=signRepository.findById(username);
+		Optional<SignupDTO> optional=signupServiceImpl.findByUsername(username);
 		if(optional.isEmpty() || !password.equals(optional.get().getPassword())) {
 			model.addAttribute("message","Hmmm your username and password are not correct.");
 			return "login";
 		}else {
 			if(optional.isPresent()) {
-				Signup signup=optional.get();
+				SignupDTO signup=optional.get();
 				signup.setPassword("");
 				session.setAttribute("ssignup", signup);
 			}
@@ -70,9 +74,9 @@ public class LoginSignupController {
 	}
 	
 	@PostMapping("/signup")
-	public String postSignup(@ModelAttribute Signup signup , Model model) {
+	public String postSignup(@ModelAttribute SignupDTO signup , Model model) {
 		System.out.println(signup);
-		signRepository.save(signup);
+		signupServiceImpl.saveData(signup);
 		model.addAttribute("message","You have registered successfully.");
 		return "signup";
 	}

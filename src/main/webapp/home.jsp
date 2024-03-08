@@ -1,6 +1,6 @@
 <!DOCTYPE html>
+<%@page import="com.vistal.tech.dto.SignupDTO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.vistal.tech.entity.Signup"%>
 <%@page import="java.util.List"%>
 <html lang="en">
 <head>
@@ -49,11 +49,11 @@
     </thead>
     <tbody>
   <%  
-  List<Signup> signups=(List<Signup>)request.getAttribute("signups");
+  List<SignupDTO> signups=(List<SignupDTO>)request.getAttribute("signups");
   if(signups==null){
 	  signups =new ArrayList<>();
   }
-      for(Signup signup : signups){
+      for(SignupDTO signup : signups){
     	 %>
       <tr>
         <td><%=signup.getUsername()%></td>
