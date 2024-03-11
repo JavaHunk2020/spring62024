@@ -40,9 +40,24 @@
     <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Username</th>
+        <th>Username
+           <a href="sortByAttribute?orderBy=asc&attributeName=username">
+             <button type="reset" class="btn btn-success">A</button>
+           </a>
+            <a href="sortByAttribute?orderBy=desc&attributeName=username">
+             <button type="reset" class="btn btn-warning">D</button>
+             </a>
+        
+        </th>
         <th>Password</th>
-        <th>Email</th>
+        <th>Email
+        <a href="sortByAttribute?orderBy=asc&attributeName=email">
+             <button type="reset" class="btn btn-success">A</button>
+           </a>
+            <a href="sortByAttribute?orderBy=desc&attributeName=email">
+             <button type="reset" class="btn btn-warning">D</button>
+             </a>
+        </th>
            <th>Gender</th>
            <th>Action</th>
       </tr>

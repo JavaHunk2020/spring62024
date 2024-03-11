@@ -18,6 +18,32 @@ public class SignupServiceImpl {
 
 	@Autowired
 	private SignRepository signRepository;
+	
+	
+	public List<SignupDTO> findAllOrderBy(String attribute,String orderBy) {
+		List<Signup> signups=new ArrayList<>();
+		if ("username".equals(attribute)) {
+			if ("asc".equalsIgnoreCase(orderBy)) {
+				signups = signRepository.findAllByOrderByUsernameAsc();
+			} else {
+				signups = signRepository.findAllByOrderByUsernameDesc();
+			}
+		} else if ("email".equals(attribute)) {
+			if ("asc".equalsIgnoreCase(orderBy)) {
+				signups = signRepository.findAllByOrderByEmailAsc();
+			} else {
+				signups = signRepository.findAllByOrderByEmailDesc();
+			}
+		}
+		List<SignupDTO> dtos = new ArrayList<>();
+		for (Signup signup : signups) {
+			SignupDTO dto = new SignupDTO();
+			BeanUtils.copyProperties(signup, dto);
+			dtos.add(dto);
+		}
+		return dtos;
+	}
+	
 
 	public List<SignupDTO> findAll() {
 		List<Signup> signups = signRepository.findAll();

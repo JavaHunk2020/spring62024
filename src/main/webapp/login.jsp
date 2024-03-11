@@ -34,6 +34,10 @@
               <a href="signup">
              <button type="button" class="btn btn-success">Signup</button>
              </a>
+             
+              <a href="forgetPassword">
+             <button type="button" class="btn btn-warning">Forget Password</button>
+             </a>
         </div>
     </form> 
      

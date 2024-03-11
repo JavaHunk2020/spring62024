@@ -20,11 +20,16 @@ import com.vistal.tech.service.SignupServiceImpl;
 @Controller
 public class LoginSignupController {
 	
-	@Autowired
-	private SignRepository signRepository;
 	
 	@Autowired
 	private SignupServiceImpl signupServiceImpl;
+	
+	@GetMapping("sortByAttribute")
+	public String sortByName(String orderBy,String attributeName, Model model) {
+		List<SignupDTO> signups=signupServiceImpl.findAllOrderBy(attributeName, orderBy);
+		model.addAttribute("signups",signups);
+		return "home";
+	}
 	
 	@GetMapping({"/papaya","/","fool","login","auth"})
 	public String showLogin() {
