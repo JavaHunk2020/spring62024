@@ -1,6 +1,7 @@
 package com.vistal.tech.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,5 +20,7 @@ public interface SignRepository extends JpaRepository<Signup, String> {
 	//HQL
 	@Query("from Signup s order by s.email desc")
 	public List<Signup> findWow();
+	
+	public Optional<Signup> findByEmailOrUsername(String email,String username);
 
 }
