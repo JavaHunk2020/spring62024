@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.vistal.tech.dto.SignupDTO;
 import com.vistal.tech.entity.Signup;
+import com.vistal.tech.repository.ResetPasswordHistoryRepository;
 import com.vistal.tech.repository.SignRepository;
 
 @Service
