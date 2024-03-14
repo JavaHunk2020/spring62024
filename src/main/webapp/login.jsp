@@ -21,15 +21,20 @@
     <form action="auth" method="post">
         <div class="form-group">
         <label>Username :</label> 
-        <input type="text" name="username" class="form-control" style="width: 40%">
+        <input onkeypress="clearMessage();" type="text" id="username" name="username" class="form-control" style="width: 40%">
+        <span id="usernameErrorMessage" style="color:red;font-size: 18px;">
+        </span>
         </div>
         
         <div class="form-group">
         <label>Password :</label> 
-        <input type="password" name="password" class="form-control" style="width: 40%">
+        <input onkeypress="clearMessage();" type="password" id="password" name="password" class="form-control" style="width: 40%">
+        
+        <span id="passwordErrorMessage" style="color:red;font-size: 18px;">
+        </span>
         </div>
      <div class="form-group" style="margin-top: 10px;">
-          <button type="submit" class="btn btn-primary">Signin</button>
+          <button type="button" class="btn btn-primary" onclick="validate();">Signin</button>
            <button type="reset" class="btn btn-warning">Clear</button>
               <a href="signup">
              <button type="button" class="btn btn-success">Signup</button>
@@ -44,5 +49,32 @@
  
 </div>
 
+<script type="text/javascript">
+       function validate(){
+    	    let usernameObj=document.getElementById("username");
+    	    let uname=usernameObj.value;
+    	    if(uname.length==0){
+    	    	document.getElementById("usernameErrorMessage").innerHTML="Username cannot be blank";
+    	    	usernameObj.focus();
+    	    	return;
+    	    }
+    	    
+    	    let passwordObj=document.getElementById("password");
+    	    let password=passwordObj.value;
+    	    if(password.length==0){
+    	    	document.getElementById("passwordErrorMessage").innerHTML="Password cannot be blank";
+    	    	passwordObj.focus();
+    	    	return;
+    	    }
+    	    
+    	    //Submitting form through JavaScript
+    	    document.forms[0].submit();
+    	    
+       }
+       function clearMessage(){
+    	   document.getElementById("usernameErrorMessage").innerHTML="";
+    	   document.getElementById("passwordErrorMessage").innerHTML="";
+       }
+</script>
 </body>
 </html>
