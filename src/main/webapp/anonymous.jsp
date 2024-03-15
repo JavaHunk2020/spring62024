@@ -14,6 +14,12 @@
  </div>
   <script type="text/javascript">
          //This is function to check number is prime or not 
+         //undefined;
+         var pk;
+         let kill;
+         console.log(pk);
+         console.log(kill);
+         
          let papa= function(num){
         	 if(num<=1) {
         		 return false;
@@ -27,6 +33,8 @@
         	 return true;
          }
          
+         pk=papa;
+         console.log(pk);
          console.log(papa);
          console.log(papa(9));
          

@@ -15,7 +15,7 @@
 
 
   <script type="text/javascript">
-  		let secondButton =document.getElementById("secondButton");
+  		let secondButton =window.document.getElementById("secondButton");
   		//obj.style.color="red";
   		secondButton.onclick = function() {
   			let imageObj =document.getElementById("imgId");
