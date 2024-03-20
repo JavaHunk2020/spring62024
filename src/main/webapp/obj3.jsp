@@ -23,16 +23,18 @@
 	   this.name=name;
 	   this.email=email;
 	   this.title=title;
-	   this.mocha=function(){
+	   this.mocha=function() {
 		   console.log(this.name);
 		   console.log(this.email);
 		   console.log(this.title);
+		   console.log(this.pk);
 	   }
 	   
-	   this.gk=function(){
+	   this.gk= function() {
 		   console.log(name);
 		   console.log(email);
 		   console.log(title);
+		  // console.log(pk);
 	   }
    }
    

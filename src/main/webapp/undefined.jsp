@@ -15,4 +15,19 @@
    <script src="js/thothit.js">
   </script>
 </body>
+  <script type="text/javascript">
+      //undefine is data type in JavaScript which only take undefined value
+      var mk;
+      let vp = undefined;  // value define type of variable
+      console.log(typeof vp);
+      console.log(mk);
+      var vistaltech = null;
+      if(vp==vistaltech){
+    	console.log("True0!)!)");  
+      }
+      
+      if(vp!==vistaltech){
+      	console.log("Ahahha got !)!)");  
+      }
+  </script>
 </html>
