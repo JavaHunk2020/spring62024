@@ -17,18 +17,8 @@
    console.log(pk2.name);
    console.log(pk2['name']);
    console.log(pk2['102']);
-   
-   //function constructor
-   let pk3=new Customer('Jhon','john@gmail.com','Miss');
-   let pk4=new Customer('Omega','omega@gmail.com','Mr');
-   
-   console.log(pk3);
-   console.log(pk4);
-   function Customer(name,email,title) {
-	   this.name=name;
-	   this.email=email;
-	   this.title=title;
-   }
+  
+ 
    
 </script>
 </head>

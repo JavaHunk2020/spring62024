@@ -8,7 +8,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.vistal.tech.dto.PatchDTO;
 import com.vistal.tech.dto.SignupDTO;
 import com.vistal.tech.entity.Signup;
 import com.vistal.tech.repository.ResetPasswordHistoryRepository;
@@ -77,6 +79,26 @@ public class SignupServiceImpl {
 		}
 	}
 	
+	public void updateData(SignupDTO signupDTO ) {
+		Optional<Signup> optional = signRepository.findById(signupDTO.getUsername());
+		if(optional.isPresent()) {
+			Signup signup = optional.get();
+			signup.setEmail(signupDTO.getEmail());
+			signup.setGender(signupDTO.getGender());
+			signRepository.save(signup);
+		}
+	}
+	
+	@Transactional
+	public void uupdateData(SignupDTO signupDTO ) {
+		Optional<Signup> optional = signRepository.findById(signupDTO.getUsername());
+		if(optional.isPresent()) {
+			Signup signup = optional.get();
+			signup.setEmail(signupDTO.getEmail());
+			signup.setGender(signupDTO.getGender());
+		}
+	}
+	
 	public void saveData(SignupDTO signupDTO ) {
 		Signup signup = new Signup();
 		BeanUtils.copyProperties(signupDTO, signup);
@@ -85,6 +107,22 @@ public class SignupServiceImpl {
 	
 	public void deleteByUsername(String uname) {
 		signRepository.deleteById(uname);	
+	}
+	
+	
+	@Transactional
+	public void updateData(PatchDTO patchDTO ) {
+		Optional<Signup> optional = signRepository.findById(patchDTO.getKey());
+		if(optional.isPresent()) {
+			Signup signup = optional.get();
+			if("email".equalsIgnoreCase(patchDTO.getAttributeName())) {
+				signup.setEmail(patchDTO.getValue());
+			}else if("gender".equalsIgnoreCase(patchDTO.getAttributeName())) {
+				signup.setGender(patchDTO.getValue());
+			}else {
+				new RuntimeException("Sorry there is not attribute  = "+patchDTO.getAttributeName());
+			}
+		}
 	}
 	
 }

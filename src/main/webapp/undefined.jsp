@@ -22,7 +22,7 @@
       console.log(typeof vp);
       console.log(mk);
       var vistaltech = null;
-      if(vp==vistaltech){
+      if(vp==vistaltech) {
     	console.log("True0!)!)");  
       }
       
