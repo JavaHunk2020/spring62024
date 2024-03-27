@@ -1,4 +1,4 @@
-package com.vistal.tech.controller;
+package com.vistal.tech.rest;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,8 +19,12 @@ import com.vistal.tech.dto.PatchDTO;
 import com.vistal.tech.dto.SignupDTO;
 import com.vistal.tech.service.SignupServiceImpl;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/v5")
+@Api(value = "API Description SignupRestController") // it description of api at top
 public class SignupRestController {
 	
 	@Autowired
@@ -32,6 +36,7 @@ public class SignupRestController {
 	//http://localhost:444/v5/signups
 	//Every method is called resource
 	@GetMapping("/signups")
+	@ApiOperation(value = "It will return list of SignupDTO")    
 	public List<SignupDTO> showSignups() {
     	List<SignupDTO> signups=signupServiceImpl.findAll();
 		return signups;

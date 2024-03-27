@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vistal.tech.dto.PatchDTO;
 import com.vistal.tech.dto.SignupDTO;
 import com.vistal.tech.entity.Signup;
-import com.vistal.tech.repository.ResetPasswordHistoryRepository;
+import com.vistal.tech.exception.SignupNotFoundException;
 import com.vistal.tech.repository.SignRepository;
 
 @Service
@@ -75,7 +75,7 @@ public class SignupServiceImpl {
 			BeanUtils.copyProperties(signup, signupDTO);
 			return Optional.of(signupDTO);
 		} else {
-			throw new RuntimeException("Sorry username does not exist into the database");
+			throw new SignupNotFoundException("Sorry username does not exist into the database");
 		}
 	}
 	
