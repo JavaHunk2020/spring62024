@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,8 +26,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 		prePostEnabled = true)
 public class SpringSecurityConfiguration  {
 
-	@Autowired
-	private UserDetailsService userDetailsService;
 
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
@@ -36,12 +35,6 @@ public class SpringSecurityConfiguration  {
 		return new AuthTokenFilter();
 	}
 
-	/*
-	 * @Override public void configure(AuthenticationManagerBuilder
-	 * authenticationManagerBuilder) throws Exception {
-	 * authenticationManagerBuilder.userDetailsService(userDetailsService)
-	 * .passwordEncoder(passwordEncoder()); }
-	 */
 
 	@Bean
     public AuthenticationManager authenticationManager
@@ -55,31 +48,21 @@ public class SpringSecurityConfiguration  {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+	  
+	private String adminAccess[] = new String[]{"/v5/admin/**"};
+	  
 	 private static final String[] AUTH_WHITELIST = {
 	            // -- swagger ui
-	            "/v2/api-docs",
-	            "/v3/api-docs",  
-	            "/swagger-resources/**", 
-	            "/webjars/**",
-	            "/swagger-ui/**",
-	             };
-	
+				"/v2/api-docs", "/v3/api-docs", "/swagger-resources/**", "/webjars/**", "/swagger-ui/**", "/ui/**", "/v5/cauth/**", "/swagger-ui.html/**" };
 
 	@Bean
 	protected SecurityFilterChain  filterChain(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and()
 				.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
-				.authorizeRequests().antMatchers("/v5/cauth/**")
-				.permitAll()
-				.antMatchers("/v5/signups/**")
-				.permitAll()
-				.antMatchers("/swagger-ui.html/**","/v1/verifyemail/**")
-				.permitAll()
-				.antMatchers("/ui/**")
-				.permitAll()
-			     .antMatchers(AUTH_WHITELIST).permitAll() 
+				.authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll()
+				.antMatchers(adminAccess).hasRole("ADMIN") //THIS ROLE BASED ACCESS FOR THIS URL
 				.anyRequest().authenticated();
 		return http.build();
 	}

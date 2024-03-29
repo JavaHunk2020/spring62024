@@ -17,21 +17,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-
 	/**
 	 * Who will call this methid ???? spring security
 	 */
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
 		if (true) {
 			List<GrantedAuthority> authorities = new ArrayList<>();
 			authorities.add(new SimpleGrantedAuthority("ADMIN"));
+			//yadna01- >> test ,ADMIN =>> all these things will come from database
 			return new User("yadna01",passwordEncoder.encode("test"),authorities);
 		} else {
 			throw new UsernameNotFoundException("User Not Found with username: " + username);

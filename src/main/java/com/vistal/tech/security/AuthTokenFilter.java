@@ -23,9 +23,14 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 
-
-
+/**
+ * 
+ * @author javahunk
+ * We are using @Bean annotation to create a bean of it
+ *
+ */
 public class AuthTokenFilter extends OncePerRequestFilter {
+  
   @Autowired
   private JwtUtils jwtUtils;
 
@@ -38,10 +43,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
     try {
+    	//HEADER
       String jwt = parseJwt(request);
       if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-        String username = jwtUtils.getUserNameFromJwtToken(jwt);
+       
+    	String username = jwtUtils.getUserNameFromJwtToken(jwt);
         String role = jwtUtils.getRoleFromJwtToken(jwt);
+        
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         List<GrantedAuthority> authorities = Stream.of(role)
                 .map(r -> new SimpleGrantedAuthority(r))
@@ -53,13 +61,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 null,
                 authorities);
         
-        //authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        //HEY YOU ARE AUTHENTICATED
         SecurityContextHolder.getContext().setAuthentication(authentication);
       }
     } catch (Exception e) {
       logger.error("Cannot set user authentication: {}", e);
     }
-
+    //HEY GO TO REST API
     filterChain.doFilter(request, response);
   }
 

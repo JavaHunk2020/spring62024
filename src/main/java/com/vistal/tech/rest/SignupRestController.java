@@ -47,10 +47,15 @@ public class SignupRestController {
 		// authentication has two things - username and role
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(signupRequest.getEmail(), signupRequest.getPassword()));
+	
+		//This code to generate JWT TOken - here we will come
+		//only when spring security validate username and password
 		String jwt = jwtUtils.generateJwtToken(authentication);
 		Map<String, Object> jwtReponse = new HashMap<>();
 		jwtReponse.put("Authorization", jwt);
 		jwtReponse.put("email", signupRequest.getEmail());
+		jwtReponse.put("username", "James Bond!");
+		
 		return jwtReponse;
 	}
 	

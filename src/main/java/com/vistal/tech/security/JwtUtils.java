@@ -30,9 +30,7 @@ public class JwtUtils {
   private int jwtExpirationMs=1800000;
 
   public String generateJwtToken(Authentication authentication) {
-
-	User userPrincipal = (User) authentication.getPrincipal();
-   Collection<GrantedAuthority> list =userPrincipal.getAuthorities();
+   Collection<? extends GrantedAuthority> list =authentication.getAuthorities();
    String role="";
    for(GrantedAuthority ga : list) {
 	   role = ga.getAuthority();
@@ -43,11 +41,11 @@ public class JwtUtils {
    
      Map<String,Object> claims=new HashMap<>();
 	 claims.put("auth", role);
-	 claims.put("email", userPrincipal.getUsername());
+	 claims.put("email", authentication.getName());
 	 claims.put("company", "Technohunk Info Solution Pvt. Ltd.");
 	
     return Jwts.builder()
-        .setSubject((userPrincipal.getUsername()))
+        .setSubject((authentication.getName()))
         .addClaims(claims)
         .setIssuedAt(new Date())
         .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))

@@ -27,7 +27,6 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 	public static void main(String[] args) {
 		try {
             System.out.println(Stream.of("green","yellow","blue").max((s1,s2)->s1.compareTo(s2)).filter(s->s.endsWith("n")).orElse("yellow"));
-			
 		}catch (Exception e) {
 
 		}
@@ -39,16 +38,13 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
   public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
       throws IOException, ServletException {
     logger.error("Unauthorized error: {}", authException.getMessage());
-
     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-
     final Map<String, Object> body = new HashMap<>();
     body.put("status", HttpServletResponse.SC_UNAUTHORIZED);
     body.put("error", "Unauthorized");
     body.put("message", "Sorry sorry , username and password are not correct");
     body.put("path", request.getServletPath());
-
     final ObjectMapper mapper = new ObjectMapper();
     mapper.writeValue(response.getOutputStream(), body);
   }
