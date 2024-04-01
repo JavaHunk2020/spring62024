@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -47,7 +48,6 @@ public class SignupRestController {
 		// authentication has two things - username and role
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(signupRequest.getEmail(), signupRequest.getPassword()));
-	
 		//This code to generate JWT TOken - here we will come
 		//only when spring security validate username and password
 		String jwt = jwtUtils.generateJwtToken(authentication);
@@ -55,7 +55,6 @@ public class SignupRestController {
 		jwtReponse.put("Authorization", jwt);
 		jwtReponse.put("email", signupRequest.getEmail());
 		jwtReponse.put("username", "James Bond!");
-		
 		return jwtReponse;
 	}
 	
@@ -79,6 +78,8 @@ public class SignupRestController {
 	}
 	
 	//{}  =>> sending data as part URI
+	
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/signups/{username}")
 	public ApplicationMessageDTO deleteSignup(@PathVariable String username) {
 		signupServiceImpl.deleteByUsername(username);

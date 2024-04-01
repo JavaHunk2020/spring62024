@@ -27,10 +27,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		if (true) {
-			List<GrantedAuthority> authorities = new ArrayList<>();
-			authorities.add(new SimpleGrantedAuthority("ADMIN"));
-			//yadna01- >> test ,ADMIN =>> all these things will come from database
-			return new User("yadna01",passwordEncoder.encode("test"),authorities);
+			if("yadna01".equals(username)) {
+				List<GrantedAuthority> authorities = new ArrayList<>();
+				authorities.add(new SimpleGrantedAuthority("ADMIN"));
+				//yadna01- >> test ,ADMIN =>> all these things will come from database
+				return new User("yadna01",passwordEncoder.encode("test"),authorities);
+			}else if("jack".equals(username)) {
+				List<GrantedAuthority> authorities = new ArrayList<>();
+				authorities.add(new SimpleGrantedAuthority("CUSTOMER"));
+				//yadna01- >> test ,ADMIN =>> all these things will come from database
+				return new User("jack",passwordEncoder.encode("jill"),authorities);
+			}else {
+				throw new UsernameNotFoundException("User Not Found with username: " + username);
+			}
 		} else {
 			throw new UsernameNotFoundException("User Not Found with username: " + username);
 		}
