@@ -5,11 +5,11 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   
-  <parent>
+ <parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		 <version>2.5.8</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>2.6.0</version>
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
   
   <properties>
@@ -17,6 +17,7 @@
     <java.version>11</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
+     <spring-cloud.version>2021.0.2</spring-cloud.version>
 </properties>
 
  <dependencies>
@@ -50,14 +51,14 @@
         </dependency>
 
         <!-- it will restart tomcat container -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
-		</dependency>
+		</dependency> -->
 		
-	<dependency>
+	<!-- <dependency>
    <groupId>io.springfox</groupId>
    <artifactId>springfox-swagger2</artifactId>
    <version>2.9.2</version>
@@ -67,7 +68,7 @@
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
 			 <version>2.9.2</version>
-		</dependency>
+		</dependency> -->
 		
 		
 		   <dependency>
@@ -80,6 +81,12 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.0</version>
         </dependency>
+        
+        	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+        
 
 <!-- https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy -->
 <dependency>
@@ -89,6 +96,24 @@
 </dependency>
 
 		
-</dependencies>
+ <dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+
+
+	</dependencies>
+
+	 <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
   
 </project>

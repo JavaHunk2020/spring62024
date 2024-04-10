@@ -20,7 +20,7 @@ public class ForgetPasswordController {
 	@Autowired
 	private PasswordResetService passwordResetService;
 	
-	@GetMapping("/forgetPassword")
+	@GetMapping()
 	public String showForgetPassword() {
 		return "forgetPassword";
 	}

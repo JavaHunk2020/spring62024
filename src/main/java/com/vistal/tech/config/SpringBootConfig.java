@@ -1,5 +1,5 @@
 package com.vistal.tech.config;
-
+/*
 import java.util.Collections;
 
 import org.springframework.context.annotation.Bean;
@@ -34,4 +34,4 @@ public class SpringBootConfig {
                 new Contact("Bhanuka Dissanayake", "www.example.com", "myeaddress@company.com"),
                 "License of API", "API license URL", Collections.emptyList()); // contact info
     }
-}
+}*/

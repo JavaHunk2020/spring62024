@@ -2,8 +2,7 @@ package com.vistal.tech;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
  * 
@@ -12,6 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 //@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @SpringBootApplication
+@EnableEurekaClient
 public class MainBoot {
 
 	public static void main(String[] magic) {

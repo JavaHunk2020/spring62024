@@ -1,5 +1,6 @@
 package com.vistal.tech.rest;
 
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,14 +25,13 @@ import com.vistal.tech.dto.ApplicationMessageDTO;
 import com.vistal.tech.dto.PatchDTO;
 import com.vistal.tech.dto.SignupDTO;
 import com.vistal.tech.security.JwtUtils;
+import com.vistal.tech.service.EmailService;
 import com.vistal.tech.service.SignupServiceImpl;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/v5")
-@Api(value = "API Description SignupRestController") // it description of api at top
+//@Api(value = "API Description SignupRestController") // it description of api at top
 public class SignupRestController {
 	
 	@Autowired
@@ -42,6 +42,9 @@ public class SignupRestController {
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	@PostMapping("/cauth")
 	public Map<String, Object> postLogin(@RequestBody SignupDTO signupRequest) {
@@ -64,7 +67,7 @@ public class SignupRestController {
 	//http://localhost:444/v5/signups
 	//Every method is called resource
 	@GetMapping("/signups")
-	@ApiOperation(value = "It will return list of SignupDTO")    
+	//@ApiOperation(value = "It will return list of SignupDTO")    
 	public List<SignupDTO> showSignups() {
     	List<SignupDTO> signups=signupServiceImpl.findAll();
 		return signups;
@@ -89,8 +92,9 @@ public class SignupRestController {
    
 	//{} JSON=> @RequestBody ->>> java object
 	@PostMapping("/signups")
-	public ApplicationMessageDTO createSignup(@RequestBody SignupDTO signupDTO) {
+	public ApplicationMessageDTO createSignup(@RequestBody SignupDTO signupDTO) throws URISyntaxException {
         signupServiceImpl.saveData(signupDTO);
+        emailService.sendSignupEmail(signupDTO.getEmail());
         ApplicationMessageDTO applicationMessageDTO=new ApplicationMessageDTO("C0194","resource is created");
  		return applicationMessageDTO;
 	}

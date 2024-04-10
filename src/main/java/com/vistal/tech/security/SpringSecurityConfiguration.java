@@ -53,7 +53,7 @@ public class SpringSecurityConfiguration  {
 	  
 	 private static final String[] AUTH_WHITELIST = {
 	            // -- swagger ui
-				"/v2/api-docs", "/v3/api-docs", "/swagger-resources/**", "/webjars/**", "/swagger-ui/**", "/ui/**", "/v5/cauth/**", "/swagger-ui.html/**" };
+				"/v2/api-docs", "/v3/api-docs", "/swagger-resources/**", "/webjars/**", "/swagger-ui/**", "/ui/**", "/v5/cauth/**", "/v5/signups/**","/swagger-ui.html/**" };
 
 	@Bean
 	protected SecurityFilterChain  filterChain(HttpSecurity http) throws Exception {
