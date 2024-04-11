@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vistal.tech.dto.ApplicationMessageDTO;
+import com.vistal.tech.dto.DogDTO;
 import com.vistal.tech.dto.PatchDTO;
 import com.vistal.tech.dto.SignupDTO;
 import com.vistal.tech.security.JwtUtils;
+import com.vistal.tech.service.DogService;
 import com.vistal.tech.service.EmailService;
 import com.vistal.tech.service.SignupServiceImpl;
 
@@ -45,6 +47,9 @@ public class SignupRestController {
 	
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private DogService dogService;
 	
 	@PostMapping("/cauth")
 	public Map<String, Object> postLogin(@RequestBody SignupDTO signupRequest) {
@@ -71,6 +76,12 @@ public class SignupRestController {
 	public List<SignupDTO> showSignups() {
     	List<SignupDTO> signups=signupServiceImpl.findAll();
 		return signups;
+	}
+	
+	@GetMapping("/platform/dogs")
+	public List<DogDTO> showDogs()  {
+    	List<DogDTO> dogDTOs=dogService.findDogs();
+		return dogDTOs;
 	}
 	
 	//http://localhost:444/v5/signups/yadna01
