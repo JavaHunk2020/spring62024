@@ -18,19 +18,14 @@ public class HelperUtils {
 		}
 		return codeBuilder.toString();
 	}
-	
+
 	public static String getBaseURI(HttpServletRequest httpServletRequest) {
-		StringBuilder builder=new  StringBuilder();
+		StringBuilder builder = new StringBuilder();
 		builder.append("http//:");
-		  InetAddress localHost=null;
-		try {
-			localHost = InetAddress.getLocalHost();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		builder.append(localHost.getHostAddress()+":");
-		builder.append(httpServletRequest.getServerPort());
+		String localHost = null;
+		localHost = "localhost";
+		builder.append(localHost + ":");
+		builder.append("3200");
 		return builder.toString();
 	}
 
