@@ -21,11 +21,11 @@ public class HelperUtils {
 
 	public static String getBaseURI(HttpServletRequest httpServletRequest) {
 		StringBuilder builder = new StringBuilder();
-		builder.append("http//:");
+		builder.append("http://");
 		String localHost = null;
 		localHost = "localhost";
 		builder.append(localHost + ":");
-		builder.append("3200");
+		builder.append("3000");
 		return builder.toString();
 	}
 

@@ -23,6 +23,10 @@ public class PasswordResetService {
 	@Autowired
 	private ResetPasswordHistoryRepository resetPasswordHistoryRepository;
 	
+	public boolean validateCodeAndUsername(String code ,String username) {
+		return resetPasswordHistoryRepository.findRecordByCodeUsername(code, username).isPresent();
+	}
+	
 	public String validateAndGenLink(String username) {
 		
 		Optional<Signup>  optional=signRepository.findByEmailOrUsername(username, username);
