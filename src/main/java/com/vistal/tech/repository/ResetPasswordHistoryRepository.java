@@ -18,4 +18,5 @@ public interface ResetPasswordHistoryRepository extends JpaRepository<ResetPassw
 	//HQL - Hibernate query language 
 	@Query(value="from ResetPasswordHistory rph where rph.code= ?1 AND rph.signup.username = ?2")
 	public Optional<ResetPasswordHistory> findRecordByCodeUsername(String code,String username);
+	
 }

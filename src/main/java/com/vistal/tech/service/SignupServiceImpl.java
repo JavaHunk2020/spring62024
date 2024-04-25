@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vistal.tech.dto.PasswordChangeDTO;
 import com.vistal.tech.dto.PatchDTO;
 import com.vistal.tech.dto.SignupDTO;
 import com.vistal.tech.entity.Signup;
@@ -22,6 +22,19 @@ public class SignupServiceImpl {
 
 	@Autowired
 	private SignRepository signRepository;
+	
+    @Transactional
+	public void updatePasswordByEmailOrUsername(PasswordChangeDTO passwordChangeDTO){
+    	Optional<Signup>  sOptional= signRepository.findByEmailOrUsername(passwordChangeDTO.getUsernameEmail(), passwordChangeDTO.getUsernameEmail());
+    	if(sOptional.isPresent()) {
+    		Signup signup=sOptional.get();
+    		signup.setPassword(passwordChangeDTO.getNewPassword());
+    	}
+	}
+	
+	public Optional<Signup> findByEmailOrUsername(String emailOrUsername){
+		return signRepository.findByEmailOrUsername(emailOrUsername, emailOrUsername);
+	}
 	
 	public List<SignupDTO> findAllOrderBy(String attribute,String orderBy) {
 		List<Signup> signups=new ArrayList<>();
