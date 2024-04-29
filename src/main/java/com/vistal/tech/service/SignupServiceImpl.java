@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,12 +24,15 @@ public class SignupServiceImpl {
 	@Autowired
 	private SignRepository signRepository;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
     @Transactional
 	public void updatePasswordByEmailOrUsername(PasswordChangeDTO passwordChangeDTO){
     	Optional<Signup>  sOptional= signRepository.findByEmailOrUsername(passwordChangeDTO.getUsernameEmail(), passwordChangeDTO.getUsernameEmail());
     	if(sOptional.isPresent()) {
     		Signup signup=sOptional.get();
-    		signup.setPassword(passwordChangeDTO.getNewPassword());
+    		signup.setPassword(passwordEncoder.encode(passwordChangeDTO.getNewPassword()));
     	}
 	}
 	
@@ -115,6 +119,8 @@ public class SignupServiceImpl {
 	public void saveData(SignupDTO signupDTO ) {
 		Signup signup = new Signup();
 		BeanUtils.copyProperties(signupDTO, signup);
+		String encodedPassword=passwordEncoder.encode(signupDTO.getPassword());
+		signup.setPassword(encodedPassword);
 		signRepository.save(signup);
 		//Calling Microservices
 		

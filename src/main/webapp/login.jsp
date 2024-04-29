@@ -18,7 +18,7 @@
    <img src="imglogin.png" style="height: 166px;"/>
     <br/>
     <span style="color:red;font-size: 18px;font-weight: bold;">${message}</span>
-    <form action="auth" method="post">
+    <form action="auth" method="post" enctype="application/x-www-form-urlencoded">
         <div class="form-group">
         <label>Username :</label> 
         <input onkeypress="clearMessage();" type="text" id="username" name="username" class="form-control" style="width: 40%">
