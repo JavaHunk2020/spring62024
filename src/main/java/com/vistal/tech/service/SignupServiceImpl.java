@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +28,15 @@ public class SignupServiceImpl {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private AopMagicService aopMagicService;
+	
+	@PostConstruct
+	public void init() throws InterruptedException {
+		aopMagicService.sec10();
+		aopMagicService.sec2();
+	}
 	
     @Transactional
 	public void updatePasswordByEmailOrUsername(PasswordChangeDTO passwordChangeDTO){
